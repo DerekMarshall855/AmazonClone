@@ -7,7 +7,7 @@ export const createOrder = (order: any) => async(dispatch: any, getState: any) =
 
     try {
         const {userSignin: {userInfo}} = getState();
-        const {data} = await axios.post('/api/orders', order, {
+        const {data} = await axios.post('https://webstore-clone.herokuapp.com/api/orders', order, {
             headers: {
                 Authorization: `Bearer ${userInfo.token}`
             },
@@ -27,7 +27,7 @@ export const detailsOrder = (orderId: any) => async(dispatch: any, getState: any
     dispatch({type: ORDER_DETAILS_REQEUST, payload: orderId});
     const {userSignin: {userInfo}} = getState();
     try {
-        const { data } = await axios.get(`/api/orders/${orderId}`, {
+        const { data } = await axios.get(`https://webstore-clone.herokuapp.com/api/orders/${orderId}`, {
             headers: { Authorization: `Bearer ${userInfo.token}`},
         });
         dispatch({ type: ORDER_DETAILS_SUCCESS, payload: data });
@@ -43,7 +43,7 @@ export const payOrder = (order: any, paymentResult: any) => async(dispatch: any,
     dispatch({type: ORDER_PAY_REQUEST, payload: {order, paymentResult}});
     const {userSignin: {userInfo}} = getState();
     try {
-        const { data } = await axios.put(`/api/orders/${order._id}/pay`, paymentResult, {
+        const { data } = await axios.put(`https://webstore-clone.herokuapp.com/api/orders/${order._id}/pay`, paymentResult, {
             headers: { Authorization: `Bearer ${userInfo.token}`},
         });
         dispatch({type: ORDER_PAY_SUCCESS, payload: data});
@@ -59,7 +59,7 @@ export const listOrderMine = () => async (dispatch: any, getState: any) => {
     dispatch({type: ORDER_MINE_LIST_REQUEST });
     const {userSignin: {userInfo}} = getState();
     try {
-        const { data } = await axios.get('/api/orders/mine', {
+        const { data } = await axios.get('https://webstore-clone.herokuapp.com/api/orders/mine', {
             headers: { Authorization: `Bearer ${userInfo.token}`},
         });
         dispatch({ type: ORDER_MINE_LIST_SUCCESS, payload: data });

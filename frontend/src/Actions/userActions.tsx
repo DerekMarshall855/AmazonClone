@@ -4,7 +4,7 @@ import { USER_DETAILS_FAIL, USER_DETAILS_REQUEST, USER_DETAILS_SUCCESS, USER_REG
 export const signin = (email : String, password : String) => async(dispatch : any) => {
     dispatch({ type: USER_SIGNIN_REQUEST, payload: { email, password }});
     try {
-        const {data} = await axios.post('/api/users/signin', {email, password});
+        const {data} = await axios.post('https://webstore-clone.herokuapp.com/api/users/signin', {email, password});
         dispatch({type: USER_SIGNIN_SUCCESS, payload: data});
         localStorage.setItem("userInfo", JSON.stringify(data));
     } catch (error) {
@@ -18,7 +18,7 @@ export const signin = (email : String, password : String) => async(dispatch : an
 export const register = (name: String, email : String, password : String) => async(dispatch : any) => {
     dispatch({ type: USER_REGISTER_REQUEST, payload: { name, email, password }});
     try {
-        const {data} = await axios.post('/api/users/register', { name, email, password });
+        const {data} = await axios.post('https://webstore-clone.herokuapp.com/api/users/register', { name, email, password });
         dispatch({type: USER_REGISTER_SUCCESS, payload: data});
         dispatch({type: USER_SIGNIN_SUCCESS, payload: data});
         localStorage.setItem("userInfo", JSON.stringify(data));
@@ -43,7 +43,7 @@ export const detailsUser = (userId: String) => async(dispatch: any, getState: an
     dispatch({type: USER_DETAILS_REQUEST, payload: userId});
     const {userSignin: {userInfo}} = getState();
     try {
-        const { data } = await axios.get(`/api/users/${userId}`,{
+        const { data } = await axios.get(`https://webstore-clone.herokuapp.com/api/users/${userId}`,{
             headers: { Authorization: `Bearer ${userInfo.token}`},
         });
         dispatch({type: USER_DETAILS_SUCCESS, payload: data});
@@ -59,7 +59,7 @@ export const updateUserProfile = (user: any) => async (dispatch: any, getState: 
     dispatch({type: USER_UPDATE_PROFILE_REQUEST, payload: user});
     const { userSignin:{userInfo}} = getState();
     try {
-        const { data } = await axios.put(`/api/users/profile`, user, {
+        const { data } = await axios.put(`https://webstore-clone.herokuapp.com/api/users/profile`, user, {
             headers: { Authorization: `Bearer ${userInfo.token}`},
         });
         dispatch({type: USER_UPDATE_PROFILE_SUCCESS, payload: data});

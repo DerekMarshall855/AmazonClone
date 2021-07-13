@@ -22,7 +22,7 @@ export const listProducts = () => async (dispatch : any) => {
 export const productDetails = (productId : string | null) => async (dispatch: any) => {
     dispatch({ type: PRODUCT_DETAILS_REQUEST, payload: productId });
     try {
-        const {data} : any = await axios.get(`/api/products/${productId}`);
+        const {data} : any = await axios.get(`https://webstore-clone.herokuapp.com/api/products/${productId}`);
         dispatch({
             type: PRODUCT_DETAILS_SUCCESS,
             payload: data

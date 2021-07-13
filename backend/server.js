@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/amazonclone', {
+mongoose.connect('mongodb+srv://derekmarshall855:5ed477273fbac967be1a@cluster0.29jda.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,

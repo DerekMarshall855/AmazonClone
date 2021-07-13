@@ -6,7 +6,7 @@ export const listProducts = () => async (dispatch : any) => {
         type: PRODUCT_LIST_REQUEST
     });
     try {
-        const { data } = await axios.get('/api/products');
+        const { data } = await axios.get('https://webstore-clone.herokuapp.com/api/products');
         dispatch({
             type: PRODUCT_LIST_SUCCESS,
             payload: data

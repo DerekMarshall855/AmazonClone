@@ -1,13 +1,8 @@
 # Launching the site
 
-Currently this clone is not available on any webservice. To launch you must:
+The site is now available at: https://webstore-clone.netlify.app/
 
-- run npm install in root folder
-- run npm install in frontend folder
-- run npm start in root folder
-- run npm start in frontend folder
-
-After this the api should be running on localhost:5000 and the frontend on localhost:3000
+Each product is just a placeholder and nothing is for sale.
 
 ## Description
 

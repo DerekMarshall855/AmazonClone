@@ -18,7 +18,7 @@ app.use(function(req, res, next) {
     next();
   });
 
-mongoose.connect('mongodb+srv://derekmarshall855:5ed477273fbac967be1a@cluster0.29jda.mongodb.net/amazonclone?retryWrites=true&w=majority', {
+mongoose.connect(process.env.MONGO_CLUSTER, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,

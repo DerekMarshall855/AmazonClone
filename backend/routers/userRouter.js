@@ -3,9 +3,16 @@ import expressAsyncHandler from 'express-async-handler';
 import bcrypt from 'bcryptjs';
 import data from '../data.js';
 import User from '../models/userModel.js';
-import { generateToken, isAuth } from '../utils.js';
+import { generateToken, isAuth, isAdmin } from '../utils.js';
 
 const userRouter = express.Router();
+
+/*
+    Things to add:
+        - Delete by ID, use isAdmin middleware, don't let admins delete admins
+        - Make admin, use put to allow admins (isAdmin middleware) to set others as admins
+        - Add more admin functionality to edit (put) different user attributes
+*/
 
 userRouter.delete('/removeAll', expressAsyncHandler(async (req, res) => {
     await User.deleteMany({});
@@ -16,6 +23,23 @@ userRouter.get('/seed', expressAsyncHandler(async (req, res) => {
     // await User.deleteMany({});
     const createdUsers = await User.insertMany(data.users);
     res.send({createdUsers});
+}));
+
+userRouter.get('/list/:id', isAuth, expressAsyncHandler(async (req, res) => {
+    //Authorizes user, then checks if user is admin, if so user is allowed to see info
+    const user = await User.findById(req.params.id);
+    if (!user) {
+        res.status(404).send({message: 'Error, list request user not found'});
+    } else if (!user.isAdmin) {
+        res.status(404).send({message: 'Error, user requesting list is not admin'})
+    } else {
+        const users = await User.find({});
+        if (users.length > 0) {
+            res.send(users);
+        } else {
+            res.status(404).send({message: 'Error, no users in DB'});
+        }
+    }
 }));
 
 userRouter.post('/signin', expressAsyncHandler(async (req, res) => {

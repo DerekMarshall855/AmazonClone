@@ -34,6 +34,8 @@ export const isAuth = (req, res, next) => {
     }
   };
 
+
+// Doesnt work for get command, only for put
 export const isAdmin = (req, res, next) => {
     if (req.user && req.user.isAdmin) {
         next();

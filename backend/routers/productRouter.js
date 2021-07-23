@@ -5,6 +5,12 @@ import data from '../data.js'
 
 const productRouter = express.Router();
 
+/*
+    Things to add:
+        - post function (isAdmin middleware) to post new products from a frontend form
+        - delete function (isAdmin) to delete products
+*/
+
 productRouter.get('/', expressAsyncHandler(async (req, res) => {
     const products = await Product.find({});
     res.send(products);
